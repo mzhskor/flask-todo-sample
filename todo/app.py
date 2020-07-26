@@ -3,5 +3,13 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def index():
+    return 'Index Page!!!'
+
+@app.route('/hello')
+def hello():
     return 'Hello, World!'
+
+@app.route('/hi')
+def hi():
+    return 'abcde'
