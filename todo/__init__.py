@@ -22,9 +22,6 @@ def create_app(test_config=None):
     # 設定はオブジェクトとして読み込む
     app.config.from_object(config[config_name])
 
-    # センシティブな設定はインスタンスフォルダ内の設定で上書きする
-    app.config.from_pyfile('config.cfg', silent=True)
-
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.cfg', silent=True)
@@ -45,5 +42,8 @@ def create_app(test_config=None):
         return f'hello'
 
     init_db(app)
+
+    from . import user
+    app.register_blueprint(user.bp)
 
     return app

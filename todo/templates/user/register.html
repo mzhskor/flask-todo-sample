@@ -6,6 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ url_for('user.register') }}"></form>
+    <form action="{{ url_for('user.register') }}" method="post">
+        <div>
+            <label for="username">username:</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div>
+            <label for="email">email:</label>
+            <input type="text" id="email" name="email">
+        </div>
+        <div>
+            <button type="submit">register</button>
+        </div>
+    </form>
 </body>
 </html>
