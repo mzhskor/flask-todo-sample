@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>TODO</h1>
+
+  <form action="{{ url_for('todo.create') }}" method="post">
+    <div>
+      <label for="title">title:</label>
+      <input type="text" name="title" id="title">
+    </div>
+    <div>
+      <label for="body">body:</label>
+      <input type="text" name="body" id="body">
+    </div>
+    <div>
+      <button type="submit">Create</button>
+    </div>
+  </form>
+
+  <hr>
+
+  <h2>TODO</h2>
+  {% for task in todos %}
+    <div>
+      <div><b>{{ task.title }}</b><br></div>
+      <div>{{ task.body }}</div>
+      <form action="{{ url_for('todo.do') }}" method="post">
+        <input type="hidden" name="task_id" value="{{ task.id }}">
+        <button type="submit">DO</button>
+      </form>
+    </div>
+  {% else %}
+    <div>ありません</div>
+  {% endfor %}
+  <hr>
+
+  <h2>DOING</h2>
+  {% for task in doings %}
+    <div>
+      <div><b>{{ task.title }}</b><br></div>
+      <div>{{ task.body }}</div>
+      <form action="{{ url_for('todo.complete') }}" method="post">
+        <input type="hidden" name="task_id" value="{{ task.id }}">
+        <button type="submit">DONE</button>
+      </form>
+    </div>
+  {% else %}
+    <div>ありません</div>
+  {% endfor %}
+  <hr>
+
+  <h2>DONE</h2>
+  {% for task in dones %}
+    <div>
+      <div><b>{{ task.title }}</b><br></div>
+      <div>{{ task.body }}</div>
+    </div>
+  {% else %}
+    <div>ありません</div>
+  {% endfor %}
+</body>
+</html>

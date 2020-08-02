@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from redis import Redis
 from todo.database import init_db
 from todo import models
 
@@ -39,5 +40,8 @@ def create_app(test_config=None):
 
     from . import user
     app.register_blueprint(user.bp)
+
+    from . import todo
+    app.register_blueprint(todo.bp)
 
     return app
