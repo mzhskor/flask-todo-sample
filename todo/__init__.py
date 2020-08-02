@@ -1,8 +1,13 @@
 import os
 from flask import Flask
+from flask_login import LoginManager
+from flask_session import Session
 from redis import Redis
 from todo.database import init_db
 from todo import models
+
+login_manager = LoginManager()
+sess = Session()
 
 def create_app(test_config=None):
     # create and configure the app
@@ -37,6 +42,7 @@ def create_app(test_config=None):
         pass
 
     init_db(app)
+    sess.init_app(app)
 
     from . import user
     app.register_blueprint(user.bp)

@@ -1,6 +1,9 @@
 astroid==2.4.2
+cachelib==0.1.1
 click==7.1.2
 Flask==1.1.2
+Flask-Login==0.5.0
+Flask-Session==0.3.2
 Flask-SQLAlchemy==2.4.4
 isort==4.3.21
 itsdangerous==1.1.0
@@ -9,7 +12,7 @@ lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 mccabe==0.6.1
 mysql-connector-python==8.0.21
-protobuf==3.12.2
+protobuf==3.12.4
 pylint==2.5.3
 redis==3.5.3
 six==1.15.0

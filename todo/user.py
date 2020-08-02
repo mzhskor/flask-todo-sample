@@ -1,20 +1,21 @@
 from flask import (
-    Blueprint, render_template, request
+    Blueprint, render_template, request, redirect, url_for
 )
 
 from todo.database import db
-from todo.models import User
+from todo.models.User import User, UserAlreadyExistsError
+from todo.use_case.user import register_user
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
+    error = None
     if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
+        try:
+            user = register_user(request.form['username'], request.form['password'])
+            return redirect(url_for('todo.index'))
+        except UserAlreadyExistsError as e:
+            error = str(e)
 
-        user = User(username=username, email=email)
-        db.session.add(user)
-        db.session.commit()
-
-    return render_template('user/register.html')
+    return render_template('user/register.html', error=error)
