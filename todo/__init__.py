@@ -35,12 +35,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    print(app.instance_path)
-
-    @app.route('/hello')
-    def hello():
-        return f'hello'
-
     init_db(app)
 
     from . import user
