@@ -5,8 +5,10 @@ from flask_session import Session
 from redis import Redis
 from todo.database import init_db
 from todo import models
+from todo.models import User
 
 login_manager = LoginManager()
+login_manager.login_view = "auth.login"
 sess = Session()
 
 def create_app(test_config=None):
@@ -43,11 +45,19 @@ def create_app(test_config=None):
 
     init_db(app)
     sess.init_app(app)
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
 
     from . import user
     app.register_blueprint(user.bp)
 
     from . import todo
     app.register_blueprint(todo.bp)
+
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     return app

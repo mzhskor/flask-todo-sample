@@ -28,6 +28,7 @@
 	"extensions": [
 		"ms-python.python",
 		"editorconfig.editorconfig",
+		"samuelcolvin.jinjahtml",
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

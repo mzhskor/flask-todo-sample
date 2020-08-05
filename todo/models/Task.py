@@ -11,16 +11,20 @@ class Task(db.Model):
     title = db.Column(db.String(30), unique=False, nullable=False)
     body = db.Column(db.String(120), unique=False, nullable=False)
     status = db.Column(db.Enum(TaskStatus), nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return '<User %r>' % self.username
 
     @classmethod
-    def plan(cls, title, body):
-        return cls(title=title, body=body, status=TaskStatus.TODO)
+    def plan(cls, user_id, title, body):
+        return cls(title=title, user_id=user_id, body=body, status=TaskStatus.TODO)
 
     def do(self):
         self.status = TaskStatus.DOING
 
     def complete(self):
         self.status = TaskStatus.DONE
+
+    def is_owner(self, user_id):
+        return self.user_id == user_id
