@@ -14,12 +14,14 @@ services:
     image: "redis:alpine"
 
   db:
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql-db:/var/lib/mysql
+      - ./docker/db/conf.d:/etc/mysql/conf.d
     ports:
       - 3306:3306
 

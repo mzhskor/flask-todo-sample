@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from enum import Enum
 from todo.database import db
 
@@ -5,6 +6,10 @@ class TaskStatus(Enum):
     TODO = 1
     DOING = 2
     DONE = 3
+
+class TaskId:
+    def (self, id: str):
+        self.id = id
 
 class Task(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
@@ -28,3 +33,13 @@ class Task(db.Model):
 
     def is_owner(self, user_id):
         return self.user_id == user_id
+
+class TaskRepository(ABC):
+    @abstractmethod
+    def save(entity: Task):
+        pass
+
+class SqlAlchemyTaskRepository(TaskRepository):
+    def save(entity: Entity):
+        db.session.add(entity)
+        db.session.commit()

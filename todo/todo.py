@@ -3,7 +3,7 @@ from flask import (
 )
 from flask_login import login_required, current_user
 from todo.database import db
-from todo.models import Task, TaskStatus
+from todo.domain import TaskRepository
 
 bp = Blueprint('todo', __name__, url_prefix='/')
 
@@ -14,6 +14,7 @@ def check_owner(task: Task, user_id: int):
 @bp.route('/', methods=['GET'])
 @login_required
 def index():
+    tasks = TaskRepository.
     todos = Task.query.filter_by(user_id=current_user.id, status=TaskStatus.TODO).all()
     doings = Task.query.filter_by(user_id=current_user.id, status=TaskStatus.DOING).all()
     dones = Task.query.filter_by(user_id=current_user.id, status=TaskStatus.DONE).all()
